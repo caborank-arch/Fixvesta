@@ -1,0 +1,11 @@
+<svg width="2160" height="840" viewBox="0 0 2600 840" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Буква F -->
+  <path d="M240 120H840V264H384V384H768V528H384V720H240V120Z" fill="#46C7A3"></path>
+
+  <!-- Текст FixVesta -->
+  <text x="1000" y="570" font-size="380" font-family="Arial, sans-serif" fill="#46C7A3" font-weight="600" letter-spacing="8">
+    FixVesta
+  </text>
+
+</svg>

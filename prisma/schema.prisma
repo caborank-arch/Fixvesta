@@ -1,0 +1,120 @@
+// fixvesta.com — staking platform DB schema
+// Apply with: npx prisma db push  (requires DATABASE_URL)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  walletAddress String   @unique
+  walletType    String   // "metamask_bsc" | "tronlink" | "phantom"
+  referralCode  String   @unique @default(cuid())
+  referredBy    String?
+  isBanned      Boolean  @default(false)
+  bonusBalance  Decimal  @default(0) @db.Decimal(18, 6)
+  createdAt     DateTime @default(now())
+
+  stakes              Stake[]
+  claims              Claim[]
+  withdrawals         Withdrawal[]
+  referralsEarned     ReferralEarning[] @relation("Referrer")
+  promoUses           PromoUse[]
+  nonces              AuthNonce[]
+}
+
+model AuthNonce {
+  id        Int      @id @default(autoincrement())
+  walletId  Int?
+  wallet    User?    @relation(fields: [walletId], references: [id])
+  address   String
+  nonce     String   @unique
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([address])
+}
+
+model Stake {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  currency  String   // "USDT_BEP20" | "USDT_TRX" | "USDC_SOL"
+  amount    Decimal  @db.Decimal(18, 6)
+  txHash    String   @unique
+  startDate DateTime @default(now())
+  endDate   DateTime
+  lastClaim DateTime?
+  isActive  Boolean  @default(true)
+  status    String   @default("active")
+
+  claims Claim[]
+}
+
+model Claim {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  stakeId   Int
+  stake     Stake    @relation(fields: [stakeId], references: [id])
+  amount    Decimal  @db.Decimal(18, 6)
+  txHash    String?
+  status    String   @default("pending")
+  claimedAt DateTime @default(now())
+}
+
+model Withdrawal {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  amount    Decimal  @db.Decimal(18, 6)
+  currency  String
+  toAddress String
+  txHash    String?
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+}
+
+model ReferralEarning {
+  id         Int      @id @default(autoincrement())
+  referrerId Int
+  referrer   User     @relation("Referrer", fields: [referrerId], references: [id])
+  refereeId  Int
+  stakeId    Int
+  amount     Decimal  @db.Decimal(18, 6)
+  paidAt     DateTime @default(now())
+}
+
+model PromoCode {
+  id          Int        @id @default(autoincrement())
+  code        String     @unique
+  bonusAmount Decimal    @db.Decimal(18, 6)
+  usageLimit  Int        @default(1)
+  usedCount   Int        @default(0)
+  expiresAt   DateTime?
+  isActive    Boolean    @default(true)
+  uses        PromoUse[]
+}
+
+model PromoUse {
+  id      Int       @id @default(autoincrement())
+  promoId Int
+  promo   PromoCode @relation(fields: [promoId], references: [id])
+  userId  Int
+  user    User      @relation(fields: [userId], references: [id])
+  usedAt  DateTime  @default(now())
+}
+
+model Settings {
+  id          Int     @id @default(1)
+  dailyRate   Float   @default(0.005) // 0.5% per day
+  stakeDays   Int     @default(100)
+  refPercent  Float   @default(0.03)  // 3% referral
+  minStake    Float   @default(10)
+  maintenance Boolean @default(false)
+}

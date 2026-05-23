@@ -1,0 +1,18 @@
+{
+  "name": "FixVesta",
+  "symbol": "CBB",
+  "description": "Stake CBB tokens and earn rewards funded by algorithmic trading bot profits on Solana. 1B fixed supply, mint authority revoked.",
+  "image": "https://fixvesta.com/logo.png",
+  "external_url": "https://fixvesta.com",
+  "properties": {
+    "files": [
+      { "uri": "https://fixvesta.com/logo.png", "type": "image/png" }
+    ],
+    "category": "fungible-token"
+  },
+  "links": {
+    "website": "https://fixvesta.com",
+    "telegram": "https://t.me/caborank",
+    "twitter": "https://x.com/CaborankN"
+  }
+}

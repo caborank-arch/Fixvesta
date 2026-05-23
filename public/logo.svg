@@ -1,0 +1,16 @@
+<svg width="260" height="70" viewBox="0 0 260 70" xmlns="http://www.w3.org/2000/svg" fill="none">
+
+<!-- ОРБИТА (УВЕЛИЧЕНА НА 15%) -->
+<g transform="translate(0,4) scale(1.15)">
+    <circle cx="30" cy="30" r="22" stroke="#46C7A3" stroke-width="3" opacity="0.45"></circle>
+    <circle cx="30" cy="30" r="14" stroke="#46C7A3" stroke-width="3" opacity="0.7"></circle>
+    <circle cx="30" cy="30" r="6" stroke="#46C7A3" stroke-width="3"></circle>
+    <circle cx="30" cy="8" r="4" fill="#46C7A3"></circle>
+</g>
+
+<!-- ТЕКСТ FIXVEST -->
+<text x="80" y="48" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#46C7A3" letter-spacing="1">
+FIXVEST
+</text>
+
+</svg>
