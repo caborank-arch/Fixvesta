@@ -11,39 +11,25 @@ const bots = [
     tagColor: "#00ffff",
     color: "#00ffff",
     winRate: "74%",
-    desc: "Scans Jupiter, Meteora, Raydium & Orca in milliseconds. Executes via Jito bundles across 5 RPC endpoints.",
+    desc: "Scans price gaps across major DEX pools in milliseconds. Executes trades atomically — profit lands in the reward pool instantly.",
     stats: [
-      { label: "Win Rate", value: "74%" },
+      { label: "Win Rate",   value: "74%" },
       { label: "24h Trades", value: "2,847" },
-      { label: "24h PnL", value: "+$410" },
+      { label: "24h PnL",    value: "+$410" },
     ],
   },
   {
-    name: "Front-run / Sandwich BOT",
-    icon: "⚔️",
-    tag: "High Yield",
+    name: "Polymarket CopyTrade BOT",
+    icon: "📊",
+    tag: "AI-Powered",
     tagColor: "#7c3aed",
     color: "#7c3aed",
-    winRate: "81%",
-    desc: "Monitors Solana mempool via Jito. Detects large pending swaps and front-runs or sandwiches them before block finalization.",
+    winRate: "68%",
+    desc: "Mirrors winning positions from top Polymarket traders in real-time. AI selects the highest-probability markets and auto-executes entries.",
     stats: [
-      { label: "Win Rate", value: "81%" },
-      { label: "24h Trades", value: "1,240" },
-      { label: "24h PnL", value: "+$890" },
-    ],
-  },
-  {
-    name: "Liquidation BOT",
-    icon: "🏦",
-    tag: "Consistent",
-    tagColor: "#10b981",
-    color: "#10b981",
-    winRate: "92%",
-    desc: "Tracks Marginfi, Kamino & Solend. Triggers instantly on health-factor breach. Flash loan + priority fee execution.",
-    stats: [
-      { label: "Win Rate", value: "92%" },
-      { label: "24h Trades", value: "38" },
-      { label: "24h PnL", value: "+$280" },
+      { label: "Win Rate",   value: "68%" },
+      { label: "24h Trades", value: "892" },
+      { label: "24h PnL",    value: "+$340" },
     ],
   },
 ];
@@ -155,7 +141,7 @@ export default async function Home() {
       {/* ── 3 BOT CARDS ── */}
       <section className="section">
         <h2 className="section-title">Our Trading Bots</h2>
-        <p className="section-subtitle">3 algorithmic strategies running 24/7 on Solana mainnet</p>
+        <p className="section-subtitle">2 algorithmic strategies running 24/7 — profits flow to stakers daily</p>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "24px", marginBottom: "32px" }}>
           {bots.map((bot, i) => (
@@ -192,13 +178,13 @@ export default async function Home() {
                 ))}
               </div>
 
-              <Link href="/market" style={{
+              <Link href="/about" style={{
                 display: "block", textAlign: "center", padding: "11px",
                 background: `${bot.color}18`, border: `1px solid ${bot.color}44`,
                 borderRadius: "10px", color: bot.color, fontSize: "13px",
                 fontWeight: "bold", textDecoration: "none",
               }}>
-                Buy License →
+                Learn More →
               </Link>
             </div>
           ))}
@@ -235,10 +221,10 @@ export default async function Home() {
             {/* Steps */}
             <div style={{ padding: "32px 28px", display: "flex", flexDirection: "column", gap: "0" }}>
               {[
-                { n: "01", icon: "⚡", color: "#00ffff",  title: "Bot Detects Opportunity",   code: `[ARB]  route: Raydium → Jupiter  gap: +0.42%  executing...`, detail: "Scanner finds price gap across DEXes in milliseconds" },
-                { n: "02", icon: "🔗", color: "#7c3aed",  title: "Jito Bundle Submitted",     code: `[EXEC] bundle_id: 0x4f2a...  priority_fee: 0.0003 SOL  status: confirmed`, detail: "Atomic MEV execution — transaction lands or nothing executes" },
-                { n: "03", icon: "💰", color: "#10b981",  title: "Profit Sent to Treasury",   code: `[TRSRY] +0.041 SOL  epoch: 147  tx: 3xK9...mF2`, detail: "60% of epoch profits flow into the on-chain reward pool" },
-                { n: "04", icon: "🎯", color: "#f59e0b",  title: "Stakers Claim Rewards",     code: `[STAKE] wallet: 9xDQ...  reward: +124.5 CBB  apy: ~25%`, detail: "Claim your proportional share at any time — no lock-up" },
+                { n: "01", icon: "⚡", color: "#00ffff",  title: "Bot Detects Opportunity",   code: `[ARB] Raydium → Jupiter gap: +0.38%  |  [COPY] Polymarket signal: YES confidence 94%`, detail: "Arbitrage and Polymarket CopyTrade bots scan markets in parallel for high-probability setups" },
+                { n: "02", icon: "🔗", color: "#7c3aed",  title: "Trade Executed On-Chain",   code: `[EXEC] tx confirmed in 1 block, fee: 0.0002 SOL, profit: +$1.24`, detail: "Atomic on-chain execution — transaction lands or nothing executes" },
+                { n: "03", icon: "💰", color: "#10b981",  title: "Profit Sent to Pool",       code: `[POOL] +0.038 SOL deposited → stakers reward pool`, detail: "Trading profit flows into the on-chain reward pool every block" },
+                { n: "04", icon: "🎯", color: "#f59e0b",  title: "Stakers Claim Daily",       code: `[CLAIM] wallet: 9xDQ...  reward: 0.5%/day, 100-day term`, detail: "Claim 0.5% of your stake every 24h — principal returned at the end of term" },
               ].map((step, i) => (
                 <div key={i} style={{ display: "flex", gap: "20px", paddingBottom: i < 3 ? "0" : "0" }}>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>

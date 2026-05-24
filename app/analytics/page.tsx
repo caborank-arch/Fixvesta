@@ -22,15 +22,13 @@ const cumulativePnL = [
 ];
 
 const botBreakdown = [
-  { name: "Arbitrage",  value: 45, color: "#00ffff" },
-  { name: "Front-run",  value: 35, color: "#7c3aed" },
-  { name: "Liquidation",value: 20, color: "#10b981" },
+  { name: "Arbitrage",            value: 56, color: "#00ffff" },
+  { name: "Polymarket CopyTrade", value: 44, color: "#7c3aed" },
 ];
 
 const botStats = [
-  { name: "Front-run / Sandwich BOT", icon: "⚔️", trades: 1240, pnlDay: "+$890",  pnlTotal: "+$5,530", winRate: "81%", status: "Running", color: "#7c3aed" },
-  { name: "Arbitrage BOT",            icon: "⚡",  trades: 2847, pnlDay: "+$410",  pnlTotal: "+$7,580", winRate: "74%", status: "Running", color: "#00ffff" },
-  { name: "Liquidation BOT",          icon: "🏦",  trades: 38,   pnlDay: "+$280",  pnlTotal: "+$2,690", winRate: "92%", status: "Running", color: "#10b981" },
+  { name: "Arbitrage BOT",            icon: "⚡",  trades: 2847, pnlDay: "+$410", pnlTotal: "+$7,580", winRate: "74%", status: "Running", color: "#00ffff" },
+  { name: "Polymarket CopyTrade BOT", icon: "📊", trades: 892,  pnlDay: "+$340", pnlTotal: "+$5,200", winRate: "68%", status: "Running", color: "#7c3aed" },
 ];
 
 const tooltipStyle = {
@@ -175,7 +173,7 @@ export default function Analytics() {
       <div className="glass-card" style={{ marginTop: "24px" }}>
         <div className="chart-header" style={{ marginBottom: "20px" }}>
           <span>Bot Performance Breakdown</span>
-          <span style={{ fontSize: "12px", color: "#10b981" }}>● 3/3 Running</span>
+          <span style={{ fontSize: "12px", color: "#10b981" }}>● 2/2 Running</span>
         </div>
         <div className="tx-table">
           <div className="tx-header" style={{ gridTemplateColumns: "2fr 1fr 1fr 1fr 1fr 1fr" }}>
