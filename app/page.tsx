@@ -1,26 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import TradeTicker from "./components/TradeTicker";
-import PresaleBar from "./components/PresaleBar";
 import ProfitCalculator from "./components/ProfitCalculator";
-
-const CBB_MINT = process.env.NEXT_PUBLIC_CBB_MINT || "";
-
-async function getCBBPrice(): Promise<string> {
-  try {
-    const res = await fetch(
-      `https://lite-api.jup.ag/price/v2?ids=${CBB_MINT}`,
-      { next: { revalidate: 60 } }
-    );
-    const data = await res.json();
-    const price = data?.data?.[CBB_MINT]?.price;
-    if (!price) return "—";
-    if (price < 0.0001) return `$${Number(price).toFixed(7)}`;
-    if (price < 0.01)   return `$${Number(price).toFixed(5)}`;
-    return `$${Number(price).toFixed(4)}`;
-  } catch { return "—"; }
-}
-
 
 const bots = [
   {
@@ -68,8 +49,6 @@ const bots = [
 ];
 
 export default async function Home() {
-  const cbbPrice = await getCBBPrice();
-
   return (
     <>
       {/* HERO */}
@@ -96,10 +75,10 @@ export default async function Home() {
 
         <div className="hero-content-wrapper">
           <div className="hero-content">
-            <h1>AI-Powered <span>DeFi Staking</span></h1>
+            <h1>Stake USDT &amp; USDC — <span>Earn 0.5% Daily</span></h1>
             <p>
-              Stake USDT (BEP20 / TRC20) or USDC (Solana) — earn 0.5% daily
-              from algorithmic trading bots running 24/7.
+              AI-powered arbitrage bots generate yield on BSC, TRON and Solana.
+              100-day term. 150% total return. Claim daily.
             </p>
 
             <ul className="hero-features">
@@ -126,7 +105,7 @@ export default async function Home() {
 
             <div className="hero-buttons">
               <Link href="/stake" className="btn-primary">Start Staking →</Link>
-              <Link href="/analytics" className="btn-secondary">View Analytics</Link>
+              <a href="#how-it-works" className="btn-secondary">How It Works</a>
             </div>
           </div>
 
@@ -154,10 +133,10 @@ export default async function Home() {
       }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "24px" }}>
           {[
-            { label: "CBB Price",       value: cbbPrice,                          sub: "Jupiter · updates every 60s", color: "#00ffff" },
-            { label: "SOL Raised",      value: "Live ↓",  sub: "see presale section below",  color: "#10b981" },
-            { label: "Presale Sold",    value: "Live ↓",  sub: "see presale section below",  color: "#f59e0b" },
-            { label: "Bots Running",    value: "3 / 3",                            sub: "Arb · Front-run · Liq",       color: "#10b981" },
+            { label: "Daily Rate",       value: "0.5%",   sub: "Paid every 24h to stakers",     color: "#00ffff" },
+            { label: "Term",             value: "100 d",  sub: "Principal returned at end",      color: "#10b981" },
+            { label: "Total Yield",      value: "150%",   sub: "50% profit + 100% principal",    color: "#f59e0b" },
+            { label: "Bots Running",     value: "3 / 3",  sub: "Arbitrage · Front-run · Liquidation", color: "#10b981" },
           ].map((s, i) => (
             <div key={i} style={{ display: "flex", alignItems: "center", gap: "16px" }}>
               <div style={{ width: "3px", height: "40px", background: s.color, borderRadius: "2px", flexShrink: 0 }} />
@@ -235,7 +214,7 @@ export default async function Home() {
       <div className="neon-divider" />
 
       {/* ── HOW IT WORKS — terminal style ── */}
-      <div className="section-full">
+      <div className="section-full" id="how-it-works">
         <div className="section-inner">
           <h2 className="section-title">How It Works</h2>
           <p className="section-subtitle">From bot execution to your wallet — fully on-chain</p>
@@ -292,38 +271,14 @@ export default async function Home() {
         <h2 className="section-title">Profit Calculator</h2>
         <p className="section-subtitle">Move the slider to see your daily, monthly and term profit</p>
         <ProfitCalculator />
-        <PresaleBar />
-      </section>
-
-      {/* TOKENOMICS */}
-      <section className="section">
-        <h2 className="section-title">Tokenomics</h2>
-        <p className="section-subtitle">1,000,000,000 CBB — fixed supply, mint authority revoked</p>
-
-        <div className="cards-grid">
-          {[
-            { label: "Presale",         pct: "25%", amount: "250M CBB", color: "#00ffff" },
-            { label: "Liquidity Pool",  pct: "20%", amount: "200M CBB", color: "#00bcd4" },
-            { label: "Staking Rewards", pct: "30%", amount: "300M CBB", color: "#0059ff" },
-            { label: "Treasury",        pct: "15%", amount: "150M CBB", color: "#7c3aed" },
-            { label: "Team (vested)",   pct: "7%",  amount: "70M CBB",  color: "#f59e0b" },
-            { label: "Marketing",       pct: "3%",  amount: "30M CBB",  color: "#10b981" },
-          ].map((item, i) => (
-            <div key={i} className="glass-card" style={{ textAlign: "center" }}>
-              <div style={{ fontSize: "36px", fontWeight: "bold", color: item.color, marginBottom: "8px" }}>{item.pct}</div>
-              <div className="card-title" style={{ fontSize: "16px" }}>{item.label}</div>
-              <p className="card-text">{item.amount}</p>
-            </div>
-          ))}
-        </div>
       </section>
 
       {/* DISCLAIMER */}
       <div style={{ padding: "0 32px 60px" }}>
         <div className="risk-disclaimer">
-          ⚠️ Staking rewards are variable and depend on bot trading performance. Past performance does not guarantee future returns.
-          Participation involves financial risk. Do not invest more than you can afford to lose.
-          CBB is a utility token, not a security or investment contract.
+          ⚠️ Staking rewards depend on bot trading performance and are not guaranteed.
+          Past performance does not guarantee future returns. Do not stake more than you can afford to lose.
+          FixVesta is a DeFi protocol — funds are managed by an audited smart contract.
         </div>
       </div>
     </>

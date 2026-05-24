@@ -1,22 +1,37 @@
-"use client";
+import Link from "next/link";
 
-const features = [
+const strategies = [
   {
-    title: "Security",
-    description: "Built on the Solana network, our platform leverages smart contracts that eliminate the need for centralized control, significantly reducing security risks.",
+    icon: "⚡",
+    name: "Arbitrage BOT",
+    desc: "Detects price gaps across decentralized exchanges and executes atomic swaps within milliseconds. Runs on multiple DEXes simultaneously.",
+    color: "#00ffff",
   },
   {
-    title: "Transparency",
-    description: "All transactions are recorded on-chain, ensuring no hidden fees or manipulation. Bot performance is publicly visible on the Analytics page.",
+    icon: "📊",
+    name: "CopyTrade",
+    desc: "Mirrors trades of top-performing on-chain traders identified by sustained Sharpe ratio. Sizing is auto-rebalanced per epoch.",
+    color: "#7c3aed",
   },
   {
-    title: "Passive Income",
-    description: "Our automated trading bots and staking protocols offer continuous rewards, letting you earn even when you're not actively trading.",
+    icon: "🎯",
+    name: "Polymarket Strategy",
+    desc: "Trades event-prediction markets against statistical baselines. Picks +EV positions when the implied probability deviates from model output.",
+    color: "#f59e0b",
   },
   {
-    title: "Community-Driven",
-    description: "CBB token holders influence platform governance, shaping the project's roadmap and future developments.",
+    icon: "💧",
+    name: "Liquidation BOT",
+    desc: "Monitors undercollateralized lending positions on Marginfi, Kamino, Aave and triggers liquidations the moment health-factor breaches threshold.",
+    color: "#10b981",
   },
+];
+
+const principles = [
+  { title: "Audited Contracts",  body: "Every staking contract is open-source and reviewed before mainnet deploy. No proxy upgrades, no hidden owner functions." },
+  { title: "Non-Custodial",      body: "We never hold user funds. Stake-and-claim runs against the smart contract — your wallet is the only key." },
+  { title: "Multi-Chain Native", body: "Stake USDT BEP20 on BSC, USDT TRC20 on TRON, or USDC on Solana. Same terms, three networks." },
+  { title: "Transparent Yield",  body: "Bot performance is on-chain — anyone can verify treasury inflows. Yields come from trading, not from new deposits." },
 ];
 
 export default function About() {
@@ -27,68 +42,79 @@ export default function About() {
         background: "linear-gradient(135deg, #0f1525, #1a1f35)",
         padding: "80px 20px 60px",
         textAlign: "center",
-        borderBottom: "1px solid rgba(0,255,255,0.08)"
+        borderBottom: "1px solid rgba(0,255,255,0.08)",
       }}>
-        <h1 style={{ fontSize: "42px", marginBottom: "16px" }}>About Us</h1>
-        <p style={{ color: "#888", fontSize: "18px", maxWidth: "600px", margin: "0 auto" }}>
-          We are a team of dedicated professionals united by a single mission: to provide
-          a secure, transparent, and innovative DeFi platform for investors and traders worldwide.
+        <h1 style={{ fontSize: "42px", marginBottom: "16px" }}>About FixVesta</h1>
+        <p style={{ color: "#888", fontSize: "18px", maxWidth: "640px", margin: "0 auto", lineHeight: 1.6 }}>
+          A multi-chain DeFi staking protocol on BNB Smart Chain, TRON and Solana.
+          Daily yields are funded by algorithmic trading strategies running 24/7 on-chain.
         </p>
       </div>
 
-      <div style={{ maxWidth: "900px", margin: "0 auto", padding: "60px 20px" }}>
+      <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "60px 20px 80px" }}>
+        {/* Mission */}
         <div className="glass-card" style={{ marginBottom: "32px" }}>
-          <h2 style={{ fontSize: "24px", marginBottom: "16px" }}>Who We Are</h2>
-          <p style={{ color: "#ccc", fontSize: "16px", lineHeight: "1.7" }}>
-            We specialize in merging advanced trading bots, blockchain technology, and
-            user-centric design into a seamless ecosystem. Our automated strategies monitor
-            the market 24/7, allowing you to earn rewards without the complexity of active
-            trading. Built natively on Solana, FixVesta is designed for speed, low fees,
-            and full on-chain transparency.
+          <h2 style={{ fontSize: "26px", marginBottom: "16px" }}>Our Mission</h2>
+          <p style={{ color: "#ccc", fontSize: "16px", lineHeight: 1.7 }}>
+            High-frequency arbitrage, MEV and liquidation strategies have historically been
+            accessible only to well-capitalised quant funds. FixVesta pools retail stablecoin
+            deposits into the same execution infrastructure — and pays the trading profit back
+            to stakers, daily, on-chain.
+          </p>
+          <p style={{ color: "#ccc", fontSize: "16px", lineHeight: 1.7, marginTop: "12px" }}>
+            Our goal is simple: give anyone with $10 of USDT or USDC the same effective access
+            to algorithmic yield that previously required a six-figure account at a prop shop.
           </p>
         </div>
 
-        <div className="glass-card" style={{ marginBottom: "32px" }}>
-          <h2 style={{ fontSize: "24px", marginBottom: "16px" }}>Our Mission</h2>
-          <p style={{ color: "#ccc", fontSize: "16px", lineHeight: "1.7" }}>
-            Our mission is to empower investors with transparent financial tools that maximize
-            growth and minimize risk. We believe in a decentralized future, where individuals
-            have full control over their assets, free from intermediaries. Through the CBB
-            token and our staking ecosystem, we are building a community-owned protocol that
-            distributes real trading profits back to holders.
-          </p>
+        {/* Strategies */}
+        <h2 style={{ fontSize: "28px", marginBottom: "20px" }}>Our Strategies</h2>
+        <p style={{ color: "#888", marginBottom: "28px" }}>
+          Four independent bots run on different markets, smoothing out yield across the term.
+        </p>
+        <div className="cards-grid" style={{ marginBottom: "48px" }}>
+          {strategies.map((s) => (
+            <div key={s.name} className="glass-card" style={{ borderColor: `${s.color}33` }}>
+              <div style={{ fontSize: "36px", marginBottom: "12px" }}>{s.icon}</div>
+              <div className="card-title" style={{ color: s.color }}>{s.name}</div>
+              <p className="card-text">{s.desc}</p>
+            </div>
+          ))}
         </div>
 
+        {/* Principles */}
+        <h2 style={{ fontSize: "28px", marginBottom: "20px" }}>Our Principles</h2>
+        <div className="cards-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", marginBottom: "48px" }}>
+          {principles.map((p) => (
+            <div key={p.title} className="glass-card">
+              <div className="card-title">{p.title}</div>
+              <p className="card-text">{p.body}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Team */}
         <div className="glass-card" style={{ marginBottom: "40px" }}>
-          <h2 style={{ fontSize: "24px", marginBottom: "20px" }}>Why Choose FixVesta?</h2>
-          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-            {features.map((f, i) => (
-              <div key={i} style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}>
-                <div style={{
-                  minWidth: "8px", height: "8px", borderRadius: "50%",
-                  background: "#00ffff", marginTop: "8px"
-                }} />
-                <div>
-                  <div style={{ fontWeight: "bold", marginBottom: "4px", color: "#fff" }}>{f.title}</div>
-                  <div style={{ color: "#aaa", fontSize: "15px", lineHeight: "1.6" }}>{f.description}</div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <h2 style={{ fontSize: "24px", marginBottom: "16px" }}>The Team</h2>
+          <p style={{ color: "#ccc", fontSize: "16px", lineHeight: 1.7 }}>
+            FixVesta is built by an anonymous team — the standard for serious DeFi protocols.
+            What matters is on-chain: audited contracts, open-source code, transparent treasury
+            flow. Pseudonymity protects contributors from coercion and makes the protocol
+            governed by code, not personalities.
+          </p>
+          <p style={{ color: "#ccc", fontSize: "16px", lineHeight: 1.7, marginTop: "12px" }}>
+            Smart contracts are public on BscScan, TronScan and Solscan. Treasury flows can be
+            verified independently. Don&apos;t trust — verify.
+          </p>
         </div>
 
-        <div style={{ textAlign: "center" }}>
-          <p style={{ color: "#888", marginBottom: "20px", fontSize: "16px" }}>
-            By choosing FixVesta, you join a forward-thinking community that embraces
-            innovation and transparency. Whether you're new to crypto or a seasoned trader,
-            we provide the tools and support to help you reach your financial goals.
-          </p>
-          <p style={{ color: "#888", marginBottom: "24px" }}>
-            Learn more about our approach and what we do in detail:
-          </p>
-          <a href="/market" className="btn-primary" style={{ textDecoration: "none", padding: "14px 32px" }}>
-            How We Work
-          </a>
+        {/* CTA */}
+        <div style={{ textAlign: "center", marginTop: "40px" }}>
+          <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
+            <Link href="/stake"       className="btn-primary"   style={{ padding: "14px 32px" }}>Start Staking →</Link>
+            <Link href="/partnership" className="btn-secondary" style={{ padding: "14px 32px" }}>Referral Program</Link>
+            <Link href="/faq"         className="btn-secondary" style={{ padding: "14px 32px" }}>FAQ</Link>
+          </div>
         </div>
       </div>
     </div>

@@ -7,11 +7,14 @@ import { getStoredUser, clearSession, type SignedSession } from "../lib/auth-cli
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "FixVesta";
 
 const navLinks = [
-  { href: "/stake",     label: "Stake" },
-  { href: "/dashboard", label: "Dashboard" },
-  { href: "/analytics", label: "Analytics" },
-  { href: "/market",    label: "Market" },
-  { href: "/docs",      label: "Docs" },
+  { href: "/stake",       label: "Stake" },
+  { href: "/dashboard",   label: "Dashboard" },
+  { href: "/analytics",   label: "Analytics" },
+  { href: "/market",      label: "Market" },
+  { href: "/about",       label: "About" },
+  { href: "/partnership", label: "Partnership" },
+  { href: "/faq",         label: "FAQ" },
+  { href: "/docs",        label: "Docs" },
 ];
 
 export default function Navbar() {
